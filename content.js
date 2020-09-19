@@ -444,7 +444,7 @@
 
     commentAllList.innerHTML = '';
     commentAllList.style.background = "url('" + loadingSpinnerGIFPath + "') no-repeat center";
-
+    
     sendRequest(endpointURL + '/getAllComments', JSON.stringify(data), 'post', loadAllCommentsResult);
   }
 
