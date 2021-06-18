@@ -126,9 +126,6 @@
   }
 
   function processLoadingSpinner(show, el) {
-    if (loadingSpinnerGIFPath == '') {
-      loadingSpinnerGIFPath = chrome.runtime.getURL('assets/ajax-loader.gif');
-    }
 
     if (show) {
       el.setAttribute('disabled', 'disabled');
@@ -413,14 +410,15 @@
       // todo spinner
       var result = JSON.parse(result.responseText);
 
+      commentList.style.background = '';
+
       if (result.success) {
         comments = result.message;
 
         document.querySelector('.custom-comments-no-comment-message').style.display = comments.length > 0 ? 'none' : 'block';
 
         commentList.style.display = comments.length > 0 ? 'block' : 'none';
-        commentList.style.background = '';
-
+        
         if (comments.length > 0) {
           commentList.innerHTML = comments.map((el) => '<li class="custom-comments-list-item"><div class="custom-comments-comment">' + el.comment + '</div><div class="custom-comments-comment-member">' + el.email + ' - ' + new Date(el.created_at).toLocaleString() + '</div></li>').join('');
 
@@ -444,7 +442,7 @@
 
     commentAllList.innerHTML = '';
     commentAllList.style.background = "url('" + loadingSpinnerGIFPath + "') no-repeat center";
-    
+
     sendRequest(endpointURL + '/getAllComments', JSON.stringify(data), 'post', loadAllCommentsResult);
   }
 
@@ -452,7 +450,7 @@
     try {
       var result = JSON.parse(result.responseText);
 
-      if (result.success == false) {
+      if (result.success) {
         comments = result.message;
 
         commentAllList.style.display = comments.length > 0 ? 'block' : 'none';
@@ -632,6 +630,10 @@
 
       tabsContent.insertBefore(tabCommentContent, document.querySelectorAll('.mini-tab-content')[document.querySelectorAll('.mini-tab-content').length - 1].nextElementSibling);
 
+      if (loadingSpinnerGIFPath == '') {
+        loadingSpinnerGIFPath = chrome.runtime.getURL('assets/ajax-loader.gif');
+      }
+
       if (hidePasswordIMGPath == '') {
         hidePasswordIMGPath = chrome.runtime.getURL('assets/password_hide.png');
         showPasswordIMGPath = chrome.runtime.getURL('assets/password_show.png');
@@ -666,7 +668,6 @@
       setTimeout(() => {
         initializeFirebase();
       }, 600);
-
 
 
 

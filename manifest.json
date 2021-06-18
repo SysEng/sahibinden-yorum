@@ -1,11 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Sahibinden.com Yorumlar",
-  "version": "0.1",
+  "version": "0.4",
   "description": "Sahibinden.com sitesindeki ilanlara yorum yapabileceğiniz bir eklentidir",
-  "permissions": [
-    "activeTab"
-  ],
   "content_scripts": [
     {
       "matches": [
